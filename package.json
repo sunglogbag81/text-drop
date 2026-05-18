@@ -1,16 +1,12 @@
 {
   "name": "text-drop",
-  "version": "1.0.0",
-  "description": "Small temporary text upload/delete web app for long text snippets.",
+  "version": "2.0.0",
+  "description": "GitHub Pages friendly static long-text link maker.",
   "type": "module",
-  "main": "server.js",
   "scripts": {
-    "start": "node server.js",
-    "dev": "node --watch server.js",
-    "check": "node --check server.js"
-  },
-  "dependencies": {
-    "express": "^4.19.2"
+    "build": "rm -rf docs && mkdir -p docs && cp -R public/. docs/ && touch docs/.nojekyll",
+    "check": "node --check public/app.js",
+    "serve": "python3 -m http.server 3000 -d docs"
   },
   "engines": {
     "node": ">=18"
