@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#111827">
+  <title>Text Drop</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <main class="shell">
+    <section class="hero">
+      <p class="eyebrow">Temporary long text pad</p>
+      <h1>긴 글을 올리고, 필요하면 바로 지우세요.</h1>
+      <p class="sub">폰 없이 인증 문구·긴 코드·메모를 잠깐 옮겨 적을 때 쓰는 가벼운 웹 도구입니다.</p>
+    </section>
+
+    <section class="card compose" aria-labelledby="compose-title">
+      <div class="card-head">
+        <h2 id="compose-title">새 글 업로드</h2>
+        <span id="counter" class="counter">0자</span>
+      </div>
+      <label>
+        제목 <span class="muted">선택</span>
+        <input id="title" maxlength="120" placeholder="예: 인증 메모">
+      </label>
+      <label id="admin-wrap" class="hidden">
+        관리자 키
+        <input id="adminKey" type="password" autocomplete="current-password" placeholder="서버 ADMIN_KEY">
+      </label>
+      <label>
+        내용
+        <textarea id="text" spellcheck="false" placeholder="여기에 긴 글을 붙여넣으세요. 모바일에서도 편하게 읽도록 큰 편집창과 복사 버튼을 준비했습니다."></textarea>
+      </label>
+      <div class="row wrap">
+        <label class="inline">
+          자동 삭제
+          <select id="ttlHours">
+            <option value="0">안 함</option>
+            <option value="1">1시간 뒤</option>
+            <option value="6">6시간 뒤</option>
+            <option value="24" selected>24시간 뒤</option>
+            <option value="72">3일 뒤</option>
+          </select>
+        </label>
+        <button id="upload" class="primary">업로드</button>
+      </div>
+      <p class="note">주의: 기본 구성은 단순 임시 보관용입니다. 공개 서버에 올릴 땐 <code>ADMIN_KEY</code>를 꼭 설정하세요.</p>
+    </section>
+
+    <section id="result" class="card result hidden" aria-live="polite"></section>
+
+    <section class="card list" aria-labelledby="list-title">
+      <div class="card-head">
+        <h2 id="list-title">올린 글</h2>
+        <button id="refresh" class="ghost">새로고침</button>
+      </div>
+      <div id="items" class="items"></div>
+    </section>
+  </main>
+
+  <template id="item-template">
+    <article class="item">
+      <div>
+        <h3></h3>
+        <p class="meta"></p>
+      </div>
+      <button class="ghost open">열기</button>
+    </article>
+  </template>
+
+  <dialog id="viewer">
+    <div class="dialog-head">
+      <div>
+        <h2 id="viewer-title"></h2>
+        <p id="viewer-meta" class="meta"></p>
+      </div>
+      <button id="close" class="icon" aria-label="닫기">×</button>
+    </div>
+    <textarea id="viewer-text" spellcheck="false"></textarea>
+    <div class="row wrap actions">
+      <button id="copy" class="primary">전체 복사</button>
+      <button id="share" class="ghost">링크 복사</button>
+      <button id="delete" class="danger">삭제</button>
+    </div>
+    <label>
+      삭제 토큰 <span class="muted">업로드 직후 받은 값</span>
+      <input id="deleteToken" autocomplete="off" placeholder="삭제 토큰">
+    </label>
+  </dialog>
+
+  <script src="/app.js" type="module"></script>
+</body>
+</html>
